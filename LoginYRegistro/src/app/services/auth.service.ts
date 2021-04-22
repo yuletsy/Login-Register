@@ -1,36 +1,59 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { UserI } from '../models/user';
+import { JwtResponseI} from '../models/jwt-response';
+import { tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+
+@Injectable()
 export class AuthService {
-  [x: string]: any;
+  AUTH_SERVER: string = 'http://localhost:3000';
+  authSubject = new BehaviorSubject(false);
+  private token: string;
+  constructor(private httpClient: HttpClient) { }
 
-
-  private URL = 'http://localhost:3001/api';
-  constructor(private http: HttpClient, private router: Router) { }
-
-  registerUser(user:any) {
-    return this.http.post<any>(this.URL + '/register', user);
+  register(user: UserI): Observable<JwtResponseI> {
+    return this.httpClient.post<JwtResponseI>(`${this.AUTH_SERVER}/register`,
+      user).pipe(tap(
+        (res: JwtResponseI) => {
+          if (res) {
+            // guardar token
+            this.saveToken(res.dataUser.accessToken, res.dataUser.expiresIn);
+          }
+        })
+      );
   }
 
-  loginUser(user:any) {
-    return this.http.post<any>(this.URL + '/login', user);
+  login(user: UserI): Observable<JwtResponseI> {
+    return this.httpClient.post<JwtResponseI>(`${this.AUTH_SERVER}/login`,
+      user).pipe(tap(
+        (res: JwtResponseI) => {
+          if (res) {
+            // guarda el token
+            this.saveToken(res.dataUser.accessToken, res.dataUser.expiresIn);
+          }
+        })
+      );
   }
 
-  loggedIn() {
-    return !!localStorage.getItem('token');
+  logout(): void {
+    this.token = '';
+    localStorage.removeItem("ACCESS_TOKEN");
+    localStorage.removeItem("EXPIRES_IN");
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/tasks']);
+  private saveToken(token: string, expiresIn: string): void {
+    localStorage.setItem("ACCESS_TOKEN", token);
+    localStorage.setItem("EXPIRES_IN", expiresIn);
+    this.token = token;
   }
 
-  getToken() {
-    return localStorage.getItem('token');
+  private getToken(): string {
+    if (!this.token) {
+      this.token = localStorage.getItem("ACCESS_TOKEN");
+    }
+    return this.token;
   }
+
 }

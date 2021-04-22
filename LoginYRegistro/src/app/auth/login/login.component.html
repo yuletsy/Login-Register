@@ -1,4 +1,15 @@
-<div class="container">
+ <div class="login">
+  <div class="login-triangle"></div>
+  
+  <h2 class="login-header">Log in</h2>
+
+  <form class="login-container">
+    <p><input type="email" name="email" placeholder="Email"></p>
+    <p><input type="password" name="password" placeholder="Password"></p>
+    <p><input type="submit"  value="Log in"></p>
+  </form>
+</div> 
+<!-- <div class="container">
   <div class="login">
     <div class="login-triangle"></div>
 
@@ -6,17 +17,14 @@
 
     <form #frmLogin="ngForm" class="login-container" (ngSubmit)="onLogin(frmLogin)">
       <p>
-        <mat-input type="email" name="email" placeholder="Email" ngModel required>
+        <input type="email" name="email" placeholder="Email" ngModel required>
       </p>
       <p>
         <input type="password" name="password" placeholder="Password" ngModel required>
       </p>
-      <!-- <input type="text" [(ngModel)]="mymessage" <button (click)="clickMe()"> send</button>
-      <br><br>
-      <h1>{{result | json}}</h1> -->
       <p>
         <input type="submit" value="Send">
       </p>
     </form>
   </div>
-</div>
+</div> -->

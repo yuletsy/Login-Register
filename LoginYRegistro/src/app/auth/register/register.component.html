@@ -1,22 +1,40 @@
-<div class="container">
+ <!-- <div class="container">
+    <div class="login">
+      <div class="login-triangle"></div>
+  
+      <h2 class="login-header">Create an account</h2>
+  
+      <form #form="ngForm" class="login-container" ngSubmit="onRegister(frmRegister)">
+        {{form.value |json}}
+        <p>
+          <input type="text" name="name" placeholder="name" ngModel required>
+        </p>
+        <p>
+            <input type="text" name="name" placeholder="name" ngModel required>
+        </p>
+        <p>
+          <input type="email" name="email" placeholder="Email" ngModel required>
+        </p>
+        <p>
+          <input type="password" name="password" placeholder="Password" ngModel required>
+        </p>
+        <p>
+          <input type="submit" value="Register">
+        </p>
+      </form>
+    </div>
+  </div> -->
   <div class="login">
     <div class="login-triangle"></div>
-
-    <h2 class="login-header">Create an account</h2>
-
-    <form #frmRegister="ngForm" class="login-container" (ngSubmit)="onRegister(frmRegister)">
-      <p>
-        <input type="text" name="name" placeholder="name" ngModel required>
-      </p>
-      <p>
-        <input type="email" name="email" placeholder="Email" ngModel required>
-      </p>
-      <p>
-        <input type="password" name="password" placeholder="Password" ngModel required>
-      </p>
-      <p>
-        <input type="submit" value="Register">
-      </p>
+    
+    <h2 class="login-header">Register</h2>
+  
+    <form class="login-container">
+      <p><input type="name" placeholder="name"></p>
+      <p><input type="lastName" placeholder="lastName"></p>
+      <p><input type="email" placeholder="Email"></p>
+      <p><input type="password" placeholder="Password"></p>
+      <p><input type="submit" value="Register"></p>
     </form>
-  </div>
-</div>
+  </div> 
+  
